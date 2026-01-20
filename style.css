@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(circle at top, #222, #000);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* CONTROLS */
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 40px 20px;
+}
+
+.controls input,
+.controls select {
+  background: #111;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+/* BACK BUTTON */
+.back-top {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 8px 18px;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid #555;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+  z-index: 10;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  padding: 40px;
+}
+
+.card {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 14px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 50px rgba(0,0,0,.7);
+}
+
+/* VIEWER */
+.viewer {
+  display: none;
+  padding: 40px;
+}
+
+.viewer img {
+  width: 80vw;
+  max-width: 1000px;
+  display: block;
+  margin: auto;
+}
+
+.engine {
+  max-width: 900px;
+  margin: 60px auto;
+  background: #111;
+  padding: 40px;
+  border-radius: 16px;
+  line-height: 1.9;
+}

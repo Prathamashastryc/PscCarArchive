@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PSC Cars Archive</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header id="title">SELECT YOUR CAR</header>
+
+<!-- ✅ CONTROLS (OPTION A FIX) -->
+<div class="controls">
+  <input id="searchInput" placeholder="Search car...">
+  <select id="sortSelect">
+    <option value="name">Name (A–Z)</option>
+    <option value="power">Power</option>
+    <option value="popularity">Popularity</option>
+  </select>
+</div>
+
+<button class="back-top" id="backBtn">← Back</button>
+
+<div class="grid" id="grid"></div>
+
+<div class="viewer" id="viewer">
+  <img id="carImg" alt="Car Image">
+  <div class="engine" id="engineInfo"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
