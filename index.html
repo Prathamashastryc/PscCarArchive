@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PSC Cars Archive</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,7 +12,7 @@
 
 <header id="title">SELECT YOUR CAR</header>
 
-<!-- ✅ CONTROLS (OPTION A FIX) -->
+<!-- CONTROLS -->
 <div class="controls">
   <input id="searchInput" placeholder="Search car...">
   <select id="sortSelect">
@@ -21,15 +22,59 @@
   </select>
 </div>
 
+<!-- (Optional) Back button – currently unused -->
 <button class="back-top" id="backBtn">← Back</button>
 
+<!-- GRID -->
 <div class="grid" id="grid"></div>
 
+<!-- VIEWER -->
 <div class="viewer" id="viewer">
+  <h1 class="car-title" id="carTitle"></h1>
   <img id="carImg" alt="Car Image">
   <div class="engine" id="engineInfo"></div>
 </div>
 
+
+<!-- ================= SUGGEST CAR FORM ================= -->
+<section class="suggest-car">
+  <h2>Suggest a Car to Add 🚗</h2>
+
+  <form id="car-suggestion-form">
+    <input
+      type="text"
+      name="name"
+      placeholder="Your name"
+      required
+    />
+
+    <input
+      type="email"
+      name="email"
+      placeholder="Your email"
+      required
+    />
+
+    <textarea
+      name="message"
+      placeholder="Which car should I add?"
+      required
+    ></textarea>
+
+    <button type="submit">
+      <span class="btn-text">Send Suggestion</span>
+      <span class="spinner"></span>
+    </button>
+
+    <div id="form-status"></div>
+  </form>
+</section>
+
+<!-- ✅ EmailJS FIRST -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<!-- ✅ THEN your JS -->
 <script src="script.js"></script>
+
 </body>
 </html>

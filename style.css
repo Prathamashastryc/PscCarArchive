@@ -1,17 +1,34 @@
+/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ================= BASE ================= */
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: radial-gradient(circle at top, #222, #000);
   color: #fff;
   min-height: 100vh;
+
+  background:
+    radial-gradient(
+      1200px circle at top center,
+      #1c1c1c 0%,
+      #0b0b0b 45%,
+      #000 100%
+    );
+
+  overflow-x: hidden;
 }
 
-/* HEADER */
+/* 🔒 Lock background scrolling */
+body.lock-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ================= HEADER ================= */
 header {
   text-align: center;
   padding: 30px;
@@ -20,7 +37,7 @@ header {
   letter-spacing: 2px;
 }
 
-/* CONTROLS */
+/* ================= CONTROLS ================= */
 .controls {
   display: flex;
   justify-content: flex-end;
@@ -37,7 +54,7 @@ header {
   border-radius: 10px;
 }
 
-/* BACK BUTTON */
+/* ================= BACK BUTTON ================= */
 .back-top {
   position: fixed;
   top: 20px;
@@ -48,50 +65,291 @@ header {
   color: #fff;
   cursor: pointer;
   display: none;
-  z-index: 10;
+  z-index: 1001;
 }
 
-/* GRID */
+/* ================= GRID ================= */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-  padding: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 36px;
+  padding: 50px;
 }
 
+/* ================= FROSTED GLASS CAR CARDS ================= */
 .card {
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 14px;
+  position: relative;
   padding: 40px 20px;
   text-align: center;
   cursor: pointer;
-  transition: transform .3s, box-shadow .3s;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.215);
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.6);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+
+/* ===== Ghosted car image inside cards (COLOR VERSION) ===== */
+.card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  opacity: 0.18;
+  filter: blur(1.2px);
+  transform: scale(1.05);
+
+  pointer-events: none;
+  z-index: 0;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    filter 0.35s ease;
 }
 
+/* Hover = slightly clearer & floating */
+.card:hover .card-bg {
+  opacity: 0.32;
+  transform: scale(1.15) translateY(-6px);
+  filter: blur(0.6px);
+}
+
+/* Keep text above image */
+.card h2 {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* Lift + sharpen on hover */
+.card:hover .card-bg {
+  opacity: 0.32;
+  transform: scale(1.15) translateY(-6px);
+  filter: grayscale(40%) blur(0.5px);
+}
+
+/* Keep title above image */
+.card h2 {
+  position: relative;
+  z-index: 2;
+}
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover elevation + glow */
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 50px rgba(0,0,0,.7);
+  transform: translateY(-10px) scale(1.02);
+  background: rgba(243, 243, 243, 0.09);
+
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(192, 76, 255, 0.25);
 }
 
-/* VIEWER */
+/* Shine sweep */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* ================= VIEWER ================= */
 .viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
   display: none;
   padding: 40px;
+
+  overflow-y: auto;
+  background:
+    radial-gradient(
+      1200px circle at center top,
+      #1a1a1a 0%,
+      #0a0a0a 45%,
+      #000 100%
+    );
+}
+
+.viewer.active {
+  display: block;
+}
+
+.car-title {
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: 1.5px;
+  margin-bottom: 25px;
+  text-shadow: 0 0 25px rgba(255,255,255,0.15);
 }
 
 .viewer img {
   width: 80vw;
   max-width: 1000px;
   display: block;
-  margin: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.9));
 }
 
 .engine {
   max-width: 900px;
   margin: 60px auto;
-  background: #111;
+  background: rgba(17,17,17,0.9);
+  backdrop-filter: blur(6px);
   padding: 40px;
   border-radius: 16px;
   line-height: 1.9;
+}
+
+/* ================= ANIMATIONS ================= */
+.fade-in {
+  animation: fadeIn 0.35s ease forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.25s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+
+/* ================= LOADING ================= */
+.viewer.loading {
+  opacity: 0;
+}
+
+.loading-placeholder {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(
+    90deg,
+    #1a1a1a 25%,
+    #222 37%,
+    #1a1a1a 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ================= SUGGEST CAR FORM ================= */
+.suggest-car {
+  max-width: 420px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+.suggest-car h2 {
+  margin-bottom: 16px;
+}
+
+.suggest-car form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.suggest-car input,
+.suggest-car textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+}
+
+.suggest-car textarea {
+  resize: none;
+  min-height: 90px;
+}
+
+.suggest-car button {
+  position: relative;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #ffffff;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Spinner */
+.spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+button.loading .spinner {
+  display: block;
+}
+
+button.loading .btn-text {
+  opacity: 0.6;
+}
+
+#form-status {
+  margin-top: 10px;
+  text-align: center;
+  min-height: 1em;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
